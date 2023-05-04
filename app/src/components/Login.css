@@ -1,0 +1,14 @@
+input{
+    border: none;
+    padding: 0px 0px 10px 0px;
+    width: 48%;
+
+}
+input:focus,input:hover{
+    outline: none;
+    border-bottom: solid 1.1px rgb(255, 22, 146);
+}
+button:hover{
+    background-color: rgb(65, 166, 255);
+    transition: all 2s ease;
+}

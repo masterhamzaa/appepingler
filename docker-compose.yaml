@@ -1,0 +1,54 @@
+version: '3'
+services:
+  app:
+    image: ./app/
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+  dbhamza:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+    restart: unless-stopped
+  rabbithamza:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: unless-stopped
+  server:
+    build: ./server/
+    ports:
+      - 1337:1337
+    depends_on:
+      - dbhamza
+      - rabbithamza
+    restart: unless-stopped
+  logs:
+      build: ./logs/
+      ports:
+        - 1338:1338
+      depends_on:
+        - dbhamza
+        - rabbithamza
+      restart: unless-stopped
+  emails:
+      build: ./emails/
+      ports:
+        - 1339:1339
+      depends_on:
+        - rabbit
+      restart: unless-stopped
+
+  router:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes: 
+      - "./nginx/api.conf:/etc/nginx/conf.d/default.conf"
+
+volumes:
+  mongodb:
