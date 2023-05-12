@@ -4,6 +4,20 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid");
 
+// rabbitmq
+const amqp = require("amqplib");
+let connection, tunnel;
+const queue1 = 'service_email_hamza';
+
+async function connecttorabbit() {
+    const server = "amqp://guest:guest@localhost:5672";
+    connection = await amqp.connect(server);
+    tunnel = await connection.createChannel();
+    await tunnel.assertQueue(queue1);
+}
+connecttorabbit()
+
+
 // Pass
 const { verifyToken } = require("../core");
 const middleware = verifyToken;
@@ -60,6 +74,13 @@ router.get("/postits/:userid", middleware, async (req, res) => {
       { userId: req.params.userid },
       { _id: 0 }
     );
+    console.log(data)
+    tunnel.sendToQueue(queue1, Buffer.from(data));
+    connecttorabbit().then(()=>{
+      tunnel.consume(queue1,(data)=>{
+        console.log("DATA =>  " +  data.content.toString());
+      })
+    })
     res.json(data);
   } catch (err) {
     res.json({ err: err.message });
