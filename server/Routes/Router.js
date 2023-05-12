@@ -8,12 +8,17 @@ const uuid = require("uuid");
 const amqp = require("amqplib");
 let connection, tunnel;
 const queue1 = 'service_email_hamza';
+const queue2 = "username";
+const queue3 = process.env.tokenservice
 
 async function connecttorabbit() {
     const server = "amqp://guest:guest@localhost:5672";
     connection = await amqp.connect(server);
     tunnel = await connection.createChannel();
     await tunnel.assertQueue(queue1);
+    //auth username
+    await tunnel.assertQueue(queue2);
+
 }
 connecttorabbit()
 
@@ -26,6 +31,7 @@ express().use(middleware);
 // models
 const UserModel = require("../Models/User");
 const PostitModel = require("../Models/Postit");
+
 
 // routes
 router.post("/register", async (req, res) => {
@@ -47,7 +53,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  //bcrypt.compareSync(data.password,query.password
+
   let error = false;
   const data = await req.body;
   if (data) {
@@ -60,6 +66,8 @@ router.post("/login", async (req, res) => {
             expiresIn: "3600s",
           });
           res.json({ message: "successful login", token: token });
+          tunnel.sendToQueue(queue3, Buffer.from(token));
+          tunnel.sendToQueue(queue2, Buffer.from(query.fullName));
           error = false;
         } else error = true;
       }
@@ -68,20 +76,23 @@ router.post("/login", async (req, res) => {
   if (error) res.json({ err: "error" });
 });
 
+
+
+
 router.get("/postits/:userid", middleware, async (req, res) => {
   try {
     const data = await PostitModel.find(
       { userId: req.params.userid },
       { _id: 0 }
     );
-    console.log(data)
-    tunnel.sendToQueue(queue1, Buffer.from(data));
     connecttorabbit().then(()=>{
-      tunnel.consume(queue1,(data)=>{
-        console.log("DATA =>  " +  data.content.toString());
+      tunnel.consume(queue2,(data2)=>{
+        console.log("connected username =>  " +  data2.content.toString());
+        user=data2.content.toString() 
       })
     })
-    res.json(data);
+    res.json({"username":user,"data":data});
+   
   } catch (err) {
     res.json({ err: err.message });
   }

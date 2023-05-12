@@ -9,14 +9,15 @@ const Header = (props) => {
           className="w3-left"
           style={{ textShadow: "1.4px 1px 10 white", paddingTop: 6 }}
         >
-          P O S T I T
+          {props.username.toUpperCase()}
         </h4>
         <div className="w3-right" style={{ marginTop: "14px" }}>
           <button
             className="w3-button w3-round w3-white w3-padding-3"
             style={{ marginBottom: 12,transition:"1ms" }}
             onClick={() => {
-              localStorage.setItem("token", "");
+              localStorage.removeItem("userid");
+              localStorage.removeItem("token");
               go("/");
             }}
           >

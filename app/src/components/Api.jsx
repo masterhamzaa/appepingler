@@ -10,10 +10,14 @@ import Header from "./Header/Header";
 export default function Api() {
   const [load, setLoad] = useState(false);
   const [data, setData] = useState([]);
+  const [user,setUser] = useState("")
+  const [token,setToken] = useState("")
 
   const go = useNavigate();
 
+  
   useEffect(() => {
+    setLoad(false)
     const getData = async () => {
       const req = await axios.get(
         `http://localhost:1337/postits/${localStorage.getItem("userid")}`,
@@ -23,22 +27,22 @@ export default function Api() {
           },
         }
       );
+      //console.log(req.data.username)
       return req.data;
     };
     getData().then((data) => {
+      
       if (data.err) {
         go("/");
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Email or Password False !",
+          text: "Authentification error !",
         });
-      } else setData(data);
+      } else {setData(data.data);setUser(data.username);}
     });
 
-    setTimeout(() => {
-      setLoad(true);
-    }, 0);
+    setLoad(true)
     // eslint-disable-next-line
   }, [load]);
 
@@ -80,11 +84,11 @@ export default function Api() {
     />
       );
   }
-  console.log(data);
+  //console.log(data);
 
   return (
     <>
-      <Header />
+      <Header username={user} />
       <div
         style={{
           textAlign: "center",
@@ -115,7 +119,7 @@ export default function Api() {
                     return "You need to write something!";
                   }
                   if (value) {
-                    console.log(value);
+                    //console.log(value);
                     Add(value);
                   }
                 },

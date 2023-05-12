@@ -33,9 +33,6 @@ export default function Login() {
           text: 'Email or Password invalid !',
         })
       }
-      
-      
-    
     });
     
   }
