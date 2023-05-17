@@ -2,9 +2,9 @@
   "name": "emails",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "emails.js",
   "scripts": {
-    "start":"node server.js",
+    "start": "nodemon email.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.10.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "nodemailer": "^6.9.1"
+    "nodemon": "^2.0.22"
   }
 }

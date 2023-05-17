@@ -63,6 +63,7 @@ export default function Signup() {
         style={{ width: "60%", padding: "10px", margin: "0 auto" }}
       >
         <form className="w3-container" method="post" onSubmit={onSubmit}>
+          
           <label>Name</label>
           <input
             className="w3-input"

@@ -7,17 +7,18 @@ const uuid = require("uuid");
 // rabbitmq
 const amqp = require("amqplib");
 let connection, tunnel;
-const queue1 = 'service_email_hamza';
-const queue2 = "username";
-const queue3 = process.env.tokenservice
+const queue_usernames = "username";
+const queue_logs = 'service_email_hamza';
+//const queue3 = process.env.tokenservice
 
 async function connecttorabbit() {
     const server = "amqp://guest:guest@localhost:5672";
     connection = await amqp.connect(server);
     tunnel = await connection.createChannel();
-    await tunnel.assertQueue(queue1);
-    //auth username
-    await tunnel.assertQueue(queue2);
+    //service of usernames
+    await tunnel.assertQueue(queue_usernames);
+    //service of logs
+    await tunnel.assertQueue(queue_logs);
 
 }
 connecttorabbit()
@@ -66,8 +67,7 @@ router.post("/login", async (req, res) => {
             expiresIn: "3600s",
           });
           res.json({ message: "successful login", token: token });
-          tunnel.sendToQueue(queue3, Buffer.from(token));
-          tunnel.sendToQueue(queue2, Buffer.from(query.fullName));
+          tunnel.sendToQueue(queue_usernames, Buffer.from(query.fullName));
           error = false;
         } else error = true;
       }
@@ -86,7 +86,7 @@ router.get("/postits/:userid", middleware, async (req, res) => {
       { _id: 0 }
     );
     connecttorabbit().then(()=>{
-      tunnel.consume(queue2,(data2)=>{
+      tunnel.consume(queue_usernames,(data2)=>{
         console.log("connected username =>  " +  data2.content.toString());
         user=data2.content.toString() 
       })

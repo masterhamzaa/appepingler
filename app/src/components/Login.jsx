@@ -13,6 +13,7 @@ export default function Login() {
 
   const go = useNavigate();
 
+  
   function onLogin(e) {
     e.preventDefault();
     const transfert = async () => {
@@ -58,14 +59,13 @@ export default function Login() {
             </Link>
           </div>
         </div>
-        <br />
-        <br />
-        <div
-          className="w3-container"
-          style={{ width: "60%", padding: "10px", margin: "0 auto" }}
-        >
-          <form className="w3-container formControls" method="post" onSubmit={onLogin}>
-            <label>Email</label>
+   
+        <div class="containerr">
+      <div class="wrapper">
+      
+        <form method="post" onSubmit={onLogin}>
+          <div class="row">
+            <i class="fas fa-user"></i>
             <input
               className="w3-input formControl__input"
               name="email"
@@ -77,8 +77,9 @@ export default function Login() {
  
               required
             />
-
-            <label>Password</label>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
             <input
               className="w3-input formControl__input"
               name="password"
@@ -89,13 +90,18 @@ export default function Login() {
               }}
               required
             />
-            <br />
-            <button className="w3-btn w3-blue" formMethod="post" type="submit">
-              Login
-            </button>
-            <br />
-          </form>
-        </div>
+          </div>
+     
+          <div class="row button">
+              <button className="w3-btn w3-blue" formMethod="post" type="submit">
+                  Login
+                </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+       
       </div>
     </>
   );
