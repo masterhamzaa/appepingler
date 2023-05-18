@@ -15,18 +15,6 @@ export default function Api() {
 
   const go = useNavigate();
 
-  useEffect(() => {
-    const getData = async () => {
-      const req = await axios.get(
-        `http://localhost:1338/logs/${localStorage.getItem("userid")}`
-      );
-      
-      return req.data;
-    };
-    getData().then((data) => {
-    console.log(data)
-    })
-  }, []);
 
   useEffect(() => {
     setLoad(false)
@@ -180,7 +168,7 @@ export default function Api() {
                     <div className="w3-third">
                       <div className="tile">
                         <div className="tile-content">
-                          <pre>{postit.postit}</pre>
+                          <pre >{postit.postit}</pre>
                         </div>
                       </div>
                     </div>

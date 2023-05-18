@@ -6,19 +6,7 @@ services:
       - 3000:3000
     depends_on:
       - server
-  dbhamza:
-    image: mongo
-    ports:
-      - 27017:27017
-    volumes:
-      - mongodb:/data/db
-    restart: unless-stopped
-  rabbithamza:
-    image: rabbitmq:3-management
-    ports:
-      - 5672:5672
-      - 15672:15672
-    restart: unless-stopped
+      
   server:
     build: ./server/
     ports:
@@ -27,19 +15,26 @@ services:
       - dbhamza
       - rabbithamza
     restart: unless-stopped
-  logs:
-      build: ./logs/
-      ports:
-        - 1338:1338
-      depends_on:
-        - dbhamza
-        - rabbithamza
-      restart: unless-stopped
+  database:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+    restart: unless-stopped
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: unless-stopped
+ 
   emails:
       build: ./emails/
       ports:
-        - 1339:1339
+        - 1338:1338
       depends_on:
+        - database
         - rabbit
       restart: unless-stopped
 

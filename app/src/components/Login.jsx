@@ -60,17 +60,19 @@ export default function Login() {
           </div>
         </div>
    
-        <div class="containerr">
-      <div class="wrapper">
+        <div className="containerr">
+      <div className="wrapper">
       
         <form method="post" onSubmit={onLogin}>
-          <div class="row">
-            <i class="fas fa-user"></i>
+          <div className="row">
+            <i className="fas fa-user"></i>
             <input
               className="w3-input formControl__input"
               name="email"
               id="email"
               type="email"
+              autoFocus
+              placeholder="hamza404@example.com"
               onChange={(e) => {
                 setData({ ...data, [e.target.name]: e.target.value });
               }}
@@ -78,13 +80,14 @@ export default function Login() {
               required
             />
           </div>
-          <div class="row">
-            <i class="fas fa-lock"></i>
+          <div className="row">
+            <i className="fas fa-lock"></i>
             <input
               className="w3-input formControl__input"
               name="password"
               id="password"
               type="password"
+              placeholder="*********"
               onChange={(e) => {
                 setData({ ...data, [e.target.name]: e.target.value });
               }}
@@ -92,8 +95,8 @@ export default function Login() {
             />
           </div>
      
-          <div class="row button">
-              <button className="w3-btn w3-blue" formMethod="post" type="submit">
+          <div className="row button">
+              <button style={{padding:"5px 30px 5px 30px",borderRadius:"8px"}} className="w3-btn w3-blue" formMethod="post" type="submit">
                   Login
                 </button>
           </div>

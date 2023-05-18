@@ -70,6 +70,7 @@ export default function Signup() {
             type="text"
             name="fullName"
             id="fullName"
+            autoFocus
             onChange={(e) => {
               setData({ ...data, [e.target.name]: e.target.value });
             }}
@@ -101,7 +102,7 @@ export default function Signup() {
             minLength={8}
           />
           <br />
-          <button className="w3-btn w3-blue" type="submit">
+          <button style={{padding:"5px 30px 5px 30px",borderRadius:"8px"}} className="w3-btn w3-blue" type="submit">
             Signup
           </button>
           <br />

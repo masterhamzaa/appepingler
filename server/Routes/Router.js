@@ -12,16 +12,24 @@ const queue_logs = 'service_email_hamza';
 //const queue3 = process.env.tokenservice
 
 async function connecttorabbit() {
-    const server = "amqp://guest:guest@localhost:5672";
-    connection = await amqp.connect(server);
-    tunnel = await connection.createChannel();
-    //service of usernames
-    await tunnel.assertQueue(queue_usernames);
-    //service of logs
-    await tunnel.assertQueue(queue_logs);
+  const server = "amqp://guest:guest@localhost:5672";
+  connection = await amqp.connect(server);
+  tunnel = await connection.createChannel();
+  //service of usernames
+  await tunnel.assertQueue(queue_usernames);
+  //service of logs
+  await tunnel.assertQueue(queue_logs);
 
 }
-connecttorabbit()
+
+connecttorabbit().then(() => {
+  tunnel.consume(queue_usernames, (data2) => {
+    console.log("connected username =>  " + data2.content.toString());
+    user = data2.content.toString()
+    tunnel.ack(data2)
+  })
+})
+
 
 
 // Pass
@@ -30,8 +38,9 @@ const middleware = verifyToken;
 express().use(middleware);
 
 // models
-const UserModel = require("../Models/User");
 const PostitModel = require("../Models/Postit");
+const UserModel = require("../Models/User");
+
 
 
 // routes
@@ -47,7 +56,7 @@ router.post("/register", async (req, res) => {
         password: bcrypt.hashSync(req.body.password, 10),
       });
       await obj.save();
-      res.json({"success":"success"})
+      res.json({ "success": "success" })
     } else exist = true;
   } else exist = true;
   if (exist) res.json({ "exist": "exist deja" });
@@ -74,8 +83,8 @@ router.post("/login", async (req, res) => {
     } else error = true;
   }
   if (error) res.json({ err: "error" });
-});
 
+});
 
 
 
@@ -85,14 +94,7 @@ router.get("/postits/:userid", middleware, async (req, res) => {
       { userId: req.params.userid },
       { _id: 0 }
     );
-    connecttorabbit().then(()=>{
-      tunnel.consume(queue_usernames,(data2)=>{
-        console.log("connected username =>  " +  data2.content.toString());
-        user=data2.content.toString() 
-      })
-    })
-    res.json({"username":user,"data":data});
-   
+    res.json({ "username": user, "data": data });
   } catch (err) {
     res.json({ err: err.message });
   }

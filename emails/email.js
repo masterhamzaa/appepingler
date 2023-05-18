@@ -1,6 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const nodemailer = require('nodemailer');
+
+// config >  nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'inkhamza226@gmail.com',
+    pass: process.env.mailerhamza
+  }
+});
 
 const server = express();
 server.use(express.json());
@@ -24,6 +34,33 @@ async function connecttorabbit() {
 }
 connecttorabbit()
 
+//test route?
+server.get("/hamza",(req,res)=>{
+  res.send({"data" : "DATA FROM HAMZA SERVER"})
+})
+
+// Define a route to send email
+server.get('/send-email', (req, res) => {
+  // Prepare email content
+  const mailOptions = {
+    from: 'H A M Z A',
+    to: 'inkhamza226@gmail.com',
+    subject: 'Hello from Nodemailer HAMZA',
+    text: 'This is a simple message sent from Proxy Hamza!'
+  };
+   // Send email
+   transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error occurred while sending email:', error.message);
+      res.status(500).send('Error occurred while sending email');
+    } else {
+      console.log('Email sent successfully!', info.response);
+      res.send('Email sent successfully!');
+    }
+  });
+}
+)
+
 
 
 // models
@@ -33,6 +70,8 @@ connecttorabbit()
 
 
 // routes
+
+
 server.get("/logs/:user",async (req,res) => {
     /*  
         user_full_name : Hamza

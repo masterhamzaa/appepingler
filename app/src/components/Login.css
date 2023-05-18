@@ -9,8 +9,9 @@ input:focus,input:hover{
     border-bottom: solid 1.1px rgb(255, 22, 146);
 }
 button:hover{
-    background-color: rgb(65, 166, 255);
-    transition: all 2s ease;
+    background-color: rgb(255, 255, 255);
+    border: blue;
+    
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
@@ -66,12 +67,11 @@ form .row input::placeholder{
 }
 .wrapper form .row i{
   position: absolute;
-  width: 47px;
+  width: 40px;
   height: 100%;
   color: #fff;
   font-size: 18px;
-  background: #4b9fff;
-  border: 1px solid #16a085;
+  background: #ca50ff;
   border-radius: 5px 0 0 5px;
   display: flex;
   align-items: center;
@@ -79,6 +79,4 @@ form .row input::placeholder{
 }
 
 
-form .button input:hover{
-  background: #12876f;
-}
+
