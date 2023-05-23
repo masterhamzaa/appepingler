@@ -9,7 +9,7 @@ const htmlToText = require('html-to-text');
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'inkhamza226@gmail.com',
+    user: process.env.user,
     pass: process.env.mailerhamza
   }
 });
