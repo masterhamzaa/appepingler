@@ -49,7 +49,7 @@ server.get('/send-email', (req, res) => {
       name: 'M A S T E R',
       address: 'MASTER@hotmail.com',
       },
-    to: 'inkhamza226@gmail.com',
+    to: process.env.user,
     subject: 'M A S T E R',
     html: '<p style="color:red;font-weight:bold;text-align:center">proxy hamza run now...</p>'
   };
