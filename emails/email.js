@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const nodemailer = require('nodemailer');
+const htmlToText = require('html-to-text');
+
 
 // config >  nodemailer
 const transporter = nodemailer.createTransport({
@@ -43,10 +45,13 @@ server.get("/hamza",(req,res)=>{
 server.get('/send-email', (req, res) => {
   // Prepare email content
   const mailOptions = {
-    from: 'H A M Z A',
+    from: {
+      name: 'M A S T E R',
+      address: 'MASTER@hotmail.com',
+      },
     to: 'inkhamza226@gmail.com',
-    subject: 'Hello from Nodemailer HAMZA',
-    text: 'This is a simple message sent from Proxy Hamza!'
+    subject: 'M A S T E R',
+    html: '<p style="color:red;font-weight:bold;text-align:center">proxy hamza run now...</p>'
   };
    // Send email
    transporter.sendMail(mailOptions, (error, info) => {
