@@ -4,27 +4,14 @@
   box-sizing: border-box;
 }
 
-
-body{
+body {
   max-width: 100%;
 }
 .container {
   width: 90% !important;
   margin: 1px auto !important;
   padding: 5px;
-  
-
 }
-/* 
-.hidr{
-  z-index: 100;
-  position: sticky;
-  top: 0;
-}
- */
-
-
-
 
 @media only screen and (max-width: 600px) {
   .container {
@@ -33,4 +20,3 @@ body{
     padding: 5px;
   }
 }
-

@@ -63,7 +63,6 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-
   let error = false;
   const data = await req.body;
   if (data) {
@@ -72,18 +71,34 @@ router.post("/login", async (req, res) => {
       if (!query) error = true;
       if (query) {
         if (bcrypt.compareSync(data.password, query.password)) {
-          const token = jwt.sign({ user: data.email }, "open", {
-            expiresIn: "3600s",
-          });
+          const token = jwt.sign({ user: data.email }, "open", {expiresIn: "3600s"});
           res.json({ message: "successful login", token: token });
           tunnel.sendToQueue(queue_usernames, Buffer.from(query.fullName));
+          let today = new Date()
+          tunnel.sendToQueue(queue_logs,Buffer.from(
+            JSON.stringify(
+              {
+                fullname : query.fullName,
+                nbPostit: await PostitModel.find({ userId: query.email}).count(),
+                loginAt : today.toLocaleDateString(undefined,{
+                  weekday: 'long',
+                  day: '2-digit', 
+                  month: '2-digit', 
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                }),
+              }
+            ))
+          )
+
           error = false;
         } else error = true;
       }
     } else error = true;
   }
-  if (error) res.json({ err: "error" });
-
+  if (error) res.json({ err: "error" })
 });
 
 
