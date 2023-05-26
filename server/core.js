@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+require("dotenv").config()
 
 const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"];
@@ -8,8 +8,7 @@ const verifyToken = (req, res, next) => {
     console.log("Token not found");
     return;
   }
-
-  jwt.verify(token, "open", (err, payload) => {
+  jwt.verify(token,process.env.decodekey, (err, payload) => {
     if (err) {
       return res.json({ err: "Token Not Match" });
     } else {

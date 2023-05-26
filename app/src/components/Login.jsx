@@ -26,6 +26,7 @@ export default function Login() {
       if(!res.err) {
         localStorage.setItem("token", res.token);
         localStorage.setItem("userid",data.email);
+        axios.get("http://localhost:1338/send-logs-by-email-to-admin").then(res=>console.log(res.data)).catch(e=>console.log(e))
         go("/Postits")
       } else {
         Swal.fire({

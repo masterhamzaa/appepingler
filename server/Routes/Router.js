@@ -71,7 +71,7 @@ router.post("/login", async (req, res) => {
       if (!query) error = true;
       if (query) {
         if (bcrypt.compareSync(data.password, query.password)) {
-          const token = jwt.sign({ user: data.email }, "open", {expiresIn: "3600s"});
+          const token = jwt.sign({ user: data.email }, process.env.decodekey, {expiresIn: "3600s"});
           res.json({ message: "successful login", token: token });
           tunnel.sendToQueue(queue_usernames, Buffer.from(query.fullName));
           let today = new Date()
