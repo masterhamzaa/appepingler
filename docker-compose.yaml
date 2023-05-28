@@ -13,14 +13,14 @@ services:
     depends_on:
       - dbhamza
       - rabbithamza
-    restart: unless-stopped
+    restart: always
   database:
     image: mongo
     ports:
       - 27017:27017
     volumes:
       - mongodb:/data/db
-    restart: unless-stopped
+    restart: always
   rabbit:
     image: rabbitmq:3-management
     ports:
