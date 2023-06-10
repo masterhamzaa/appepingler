@@ -18,7 +18,7 @@ const server = express();
 server.use(express.json());
 server.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://app:3000",
   })
 );
 
@@ -29,7 +29,7 @@ let connection, tunnel;
 const queue_logs = 'service_email_hamza';
 
 async function connecttorabbit() {
-  const server = "amqp://guest:guest@localhost:5672";
+  const server = "amqp://guest:guest@rabbit:5672";
   connection = await amqp.connect(server);
   tunnel = await connection.createChannel();
 

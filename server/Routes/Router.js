@@ -12,7 +12,7 @@ const queue_logs = 'service_email_hamza';
 //const queue3 = process.env.tokenservice
 
 async function connecttorabbit() {
-  const server = "amqp://guest:guest@localhost:5672";
+  const server = "amqp://guest:guest@rabbit:5672";
   connection = await amqp.connect(server);
   tunnel = await connection.createChannel();
   //service of usernames

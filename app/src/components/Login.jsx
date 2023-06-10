@@ -17,7 +17,7 @@ export default function Login() {
   function onLogin(e) {
     e.preventDefault();
     const transfert = async () => {
-      const req = await axios.post("http://localhost:1337/login", data);
+      const req = await axios.post("http://server:1337/login", data);
       return req.data;
     };
 
@@ -26,7 +26,7 @@ export default function Login() {
       if(!res.err) {
         localStorage.setItem("token", res.token);
         localStorage.setItem("userid",data.email);
-        axios.get("http://localhost:1338/send-logs-by-email-to-admin").then(res=>console.log(res.data)).catch(e=>console.log(e))
+        axios.get("http://emails:1338/send-logs-by-email-to-admin").then(res=>console.log(res.data)).catch(e=>console.log(e))
         go("/Postits")
       } else {
         Swal.fire({

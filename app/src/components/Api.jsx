@@ -14,7 +14,7 @@ export default function Api() {
   const [load, setLoad] = useState(false)
   const [data, setData] = useState([])
   const [user, setUser] = useState("")
-  const api = axios.create({ baseURL: 'http://localhost:1337/',})
+  const api = axios.create({ baseURL: 'http://server:1337/',})
   const go = useNavigate()
   const notify = (msg, titre, type) => {
     return Swal.fire({

@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const server = express();
 server.use(express.json());
-server.use(cors({origin: "http://localhost:3000"}));
+server.use(cors({origin: "http://app:3000"}));
 
 // mongo database
 const { mdb } = require("./database/db");
