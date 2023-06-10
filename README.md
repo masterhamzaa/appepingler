@@ -1,6 +1,5 @@
 ###### CLOUD NATIVE :
 
- ##### Markup : 
                 - MERN
                 - DOCKER
                 - NGINX
