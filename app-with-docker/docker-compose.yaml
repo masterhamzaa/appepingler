@@ -36,10 +36,6 @@ services:
       build: ./emails/
       ports:
         - 1338:1338
-      environment:
-      - user='inkhamza226@gmail.com'
-      - port=1338
-      - mailerhamza=plpyoiwybiibvtbc
       depends_on:
         - database
         - rabbit
