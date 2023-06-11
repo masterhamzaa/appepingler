@@ -1,0 +1,98 @@
+.tile {
+  width: 90%;
+  height: 20vh;
+  max-width: 730px;
+  padding: 20px;
+  margin: 30px auto;
+  line-height: 2em;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgb(119, 109, 109);
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.flex-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.flex-actions > button:nth-child(1):hover {
+  color: #5400a8 !important;
+  background-color: rgb(255, 255, 255) !important;
+  transition: 1ms;
+}
+
+.flex-actions > button:nth-child(2):hover {
+  color: #ff0000 !important;
+  background-color: rgb(255, 255, 255) !important;
+  transition: 1ms;
+}
+
+#loader {
+  position: absolute;
+
+  left: 50%;
+  top: 60%;
+  z-index: 1;
+  width: 80px;
+  height: 80px;
+  margin: -60px 0 0 -60px;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #37c3ff;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s;
+}
+
+@-webkit-keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}

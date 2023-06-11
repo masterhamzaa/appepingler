@@ -10,9 +10,14 @@ services:
     build: ./server/
     ports:
       - 1337:1337
+    environment:
+      - mdp="mongodb://mongo:27017/expresshamza"
+      - port=1337
+      - decodekey="openopen"
     depends_on:
       - database
       - rabbit
+    
     restart: always
   database:
     image: mongo
@@ -31,6 +36,10 @@ services:
       build: ./emails/
       ports:
         - 1338:1338
+      environment:
+      - user='inkhamza226@gmail.com'
+      - port=1338
+      - mailerhamza=plpyoiwybiibvtbc
       depends_on:
         - database
         - rabbit

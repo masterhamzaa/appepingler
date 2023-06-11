@@ -2,9 +2,11 @@ FROM node:latest
 
 WORKDIR /app/emails
 
-COPY . .
+COPY package.json .
 
 RUN npm install
+
+COPY . .
 
 EXPOSE 1338
 

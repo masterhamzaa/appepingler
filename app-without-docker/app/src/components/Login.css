@@ -1,0 +1,82 @@
+input{
+    border: none;
+    padding: 0px 0px 10px 0px;
+    width: 48%;
+
+}
+input:focus,input:hover{
+    outline: none;
+    border-bottom: solid 1.1px rgb(255, 22, 146);
+}
+button:hover{
+    background-color: rgb(255, 255, 255);
+    border: blue;
+    
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+body{
+  overflow: hidden;
+}
+::selection{
+  background: rgba(26,188,156,0.3);
+}
+.containerr{
+  max-width: 740px;
+  padding: 0 20px;
+  margin: 60px auto;
+
+}
+.wrapper{
+  width: 100%;
+  padding: 50px;
+  background: #fff;
+
+}
+
+.wrapper form{
+  padding: 30px 25px 25px 25px;
+}
+.wrapper form .row{
+  height: 45px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.wrapper form .row input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 60px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+form .row input:focus{
+  border-color: #d630ff;
+  box-shadow: inset 0px 0px 2px 2px rgba(26,188,156,0.25);
+}
+form .row input::placeholder{
+  color: #999;
+}
+.wrapper form .row i{
+  position: absolute;
+  width: 40px;
+  height: 100%;
+  color: #fff;
+  font-size: 18px;
+  background: #ca50ff;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
