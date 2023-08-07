@@ -4,12 +4,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid");
 
+
 // rabbitmq
 const amqp = require("amqplib");
 let connection, tunnel;
 const queue_usernames = "username";
 const queue_logs = 'service_email_hamza';
 //const queue3 = process.env.tokenservice
+
 
 async function connecttorabbit() {
   const server = "amqp://guest:guest@rabbit:5672";
@@ -19,7 +21,6 @@ async function connecttorabbit() {
   await tunnel.assertQueue(queue_usernames);
   //service of logs
   await tunnel.assertQueue(queue_logs);
-
 }
 
 connecttorabbit().then(() => {
