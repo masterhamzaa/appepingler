@@ -15,7 +15,7 @@ export default function Signup() {
 
     e.preventDefault();
     const transfert = async () => {
-      const req = await axios.post("http://server:1337/register", data);
+      const req = await axios.post("http://localhot:1337/register", data);
       return req.data;
     };
 
